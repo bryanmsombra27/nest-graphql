@@ -3,5 +3,11 @@
 # ------------------------------------------------------
 
 type Query {
-  helloWorld: String!
+  """
+  pasando este objeto de configuracion al decorador de la Query podemos especificar un nombre, descripcion un valor por defecto o si el metodo ya esta siendo obsoleto o no entre otras configuraciones mas, si no se pasa el objeto por defecto la Query tomara el nombre que se le asigno a a la funcion
+  """
+  koso: String!
+  randomNumber: Float!
+  getRandomFromZeroTo: Float!
+  getRandomFromZeroToArgs(randomLimit: Int): Float!
 }
