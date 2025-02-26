@@ -1,0 +1,45 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Item {
+  id: ID!
+  name: String!
+  quantity: Float!
+  quantityUnits: String
+  isActive: Boolean!
+}
+
+type FindAllResponse {
+  items: [Item!]!
+  count: Int!
+}
+
+type DeleteItemResponse {
+  item: Item!
+  message: String!
+}
+
+type Query {
+  getAllItems: FindAllResponse!
+  getItem(id: String!): Item!
+}
+
+type Mutation {
+  createItem(createItemInput: CreateItemInput!): Item!
+  updateItem(updateItemInput: UpdateItemInput!): Item!
+  removeItem(id: ID!): DeleteItemResponse!
+}
+
+input CreateItemInput {
+  name: String!
+  quantity: Float!
+  quantityUnits: String
+}
+
+input UpdateItemInput {
+  name: String
+  quantity: Float
+  quantityUnits: String
+  id: ID!
+}

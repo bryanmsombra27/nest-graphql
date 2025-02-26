@@ -1,0 +1,12 @@
+services:
+  db:
+    container_name: analyst-db
+    image: postgres:16.6
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - ./bd-data:/var/lib/postgresql/data
