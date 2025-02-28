@@ -1,5 +1,11 @@
 import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @ObjectType()
 @Entity({ name: 'Users' })
@@ -34,4 +40,9 @@ export class User {
     default: true,
   })
   isActive: boolean;
+
+  @Field(() => User, { nullable: true })
+  @ManyToOne(() => User, (user) => user.updatedBy, { nullable: true })
+  @JoinColumn()
+  updatedBy?: User;
 }

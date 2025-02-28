@@ -27,6 +27,7 @@ type User {
   password: String!
   roles: [String!]!
   isActive: Boolean!
+  updatedBy: User
 }
 
 type SignUpSchemaResponse {
@@ -38,9 +39,15 @@ type SignUpSchemaResponse {
 type Query {
   getAllItems: FindAllResponse!
   getItem(id: String!): Item!
-  users: [User!]!
+  users(roles: [Roles!] = []): [User!]!
   user(id: ID!): User!
   revalidate: SignUpSchemaResponse!
+}
+
+enum Roles {
+  user
+  admin
+  superUser
 }
 
 type Mutation {
@@ -48,6 +55,7 @@ type Mutation {
   updateItem(updateItemInput: UpdateItemInput!): Item!
   removeItem(id: ID!): DeleteItemResponse!
   blockUser(id: ID!): User!
+  updateUser(id: ID!, updateUserInput: UpdateUserInput!): User!
   signUp(SignUpInput: SignUpInput!): SignUpSchemaResponse!
   login(loginInput: LoginInput!): SignUpSchemaResponse!
 }
@@ -63,6 +71,14 @@ input UpdateItemInput {
   quantity: Float
   quantityUnits: String
   id: ID!
+}
+
+input UpdateUserInput {
+  email: String
+  fullName: String
+  password: String
+  roles: [Roles!]
+  isActive: Boolean
 }
 
 input SignUpInput {
