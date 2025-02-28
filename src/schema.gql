@@ -37,11 +37,11 @@ type SignUpSchemaResponse {
 }
 
 type Query {
-  getAllItems: FindAllResponse!
-  getItem(id: String!): Item!
+  revalidate: SignUpSchemaResponse!
   users(roles: [Roles!] = []): [User!]!
   user(id: ID!): User!
-  revalidate: SignUpSchemaResponse!
+  getAllItems: FindAllResponse!
+  getItem(id: String!): Item!
 }
 
 enum Roles {
@@ -51,13 +51,32 @@ enum Roles {
 }
 
 type Mutation {
+  signUp(SignUpInput: SignUpInput!): SignUpSchemaResponse!
+  login(loginInput: LoginInput!): SignUpSchemaResponse!
+  blockUser(id: ID!): User!
+  updateUser(id: ID!, updateUserInput: UpdateUserInput!): User!
   createItem(createItemInput: CreateItemInput!): Item!
   updateItem(updateItemInput: UpdateItemInput!): Item!
   removeItem(id: ID!): DeleteItemResponse!
-  blockUser(id: ID!): User!
-  updateUser(id: ID!, updateUserInput: UpdateUserInput!): User!
-  signUp(SignUpInput: SignUpInput!): SignUpSchemaResponse!
-  login(loginInput: LoginInput!): SignUpSchemaResponse!
+}
+
+input SignUpInput {
+  email: String!
+  fullName: String!
+  password: String!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+input UpdateUserInput {
+  email: String
+  fullName: String
+  password: String
+  roles: [Roles!]
+  isActive: Boolean
 }
 
 input CreateItemInput {
@@ -71,23 +90,4 @@ input UpdateItemInput {
   quantity: Float
   quantityUnits: String
   id: ID!
-}
-
-input UpdateUserInput {
-  email: String
-  fullName: String
-  password: String
-  roles: [Roles!]
-  isActive: Boolean
-}
-
-input SignUpInput {
-  email: String!
-  fullName: String!
-  password: String!
-}
-
-input LoginInput {
-  email: String!
-  password: String!
 }
