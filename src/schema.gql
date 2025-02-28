@@ -20,15 +20,36 @@ type DeleteItemResponse {
   message: String!
 }
 
+type User {
+  id: ID!
+  fullName: String!
+  email: String!
+  password: String!
+  roles: [String!]!
+  isActive: Boolean!
+}
+
+type SignUpSchemaResponse {
+  message: String!
+  token: String!
+  user: User!
+}
+
 type Query {
   getAllItems: FindAllResponse!
   getItem(id: String!): Item!
+  users: [User!]!
+  user(id: ID!): User!
+  revalidate: SignUpSchemaResponse!
 }
 
 type Mutation {
   createItem(createItemInput: CreateItemInput!): Item!
   updateItem(updateItemInput: UpdateItemInput!): Item!
   removeItem(id: ID!): DeleteItemResponse!
+  blockUser(id: ID!): User!
+  signUp(SignUpInput: SignUpInput!): SignUpSchemaResponse!
+  login(loginInput: LoginInput!): SignUpSchemaResponse!
 }
 
 input CreateItemInput {
@@ -42,4 +63,15 @@ input UpdateItemInput {
   quantity: Float
   quantityUnits: String
   id: ID!
+}
+
+input SignUpInput {
+  email: String!
+  fullName: String!
+  password: String!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
 }
