@@ -1,12 +1,12 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { AuthService } from './auth.service';
 import { SignUpInput } from './dto/inputs/signup-input';
-import { SignUpSchemaResponse } from 'src/response-schemas/authSchemaResponses';
+import { SignUpSchemaResponse } from '../response-schemas/authSchemaResponses';
 import { LoginInput } from './dto/inputs/login-input';
 import { JwtGuard } from './guards/jwt-auth.guard';
 import { UseGuards } from '@nestjs/common';
 import { CurrentUser } from './decorators/current-user.decorator';
-import { User } from 'src/users/entities/user.entity';
+import { User } from '../users/entities/user.entity';
 import { Roles } from './enum/valid-roles';
 
 @Resolver()

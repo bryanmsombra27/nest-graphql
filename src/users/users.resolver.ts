@@ -16,7 +16,7 @@ import { ParseUUIDPipe, UseGuards } from '@nestjs/common';
 import { JwtGuard } from '../auth/guards/jwt-auth.guard';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { Roles } from '../auth/enum/valid-roles';
-import { ItemsService } from 'src/items/items.service';
+import { ItemsService } from '../items/items.service';
 
 @Resolver(() => User)
 @UseGuards(JwtGuard)

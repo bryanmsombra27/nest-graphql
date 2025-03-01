@@ -6,12 +6,12 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { UpdateUserInput } from './dto/update-user.input';
-import { SignUpInput } from 'src/auth/dto/inputs/signup-input';
+import { SignUpInput } from '../auth/dto/inputs/signup-input';
 import { User } from './entities/user.entity';
-import { ArrayContains, FindManyOptions, In, Repository } from 'typeorm';
+import { FindManyOptions, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
-import { Roles } from 'src/auth/enum/valid-roles';
+import { Roles } from '../auth/enum/valid-roles';
 
 @Injectable()
 export class UsersService {

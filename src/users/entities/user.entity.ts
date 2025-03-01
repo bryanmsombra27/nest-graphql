@@ -1,5 +1,5 @@
-import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
-import { Item } from 'src/items/entities/item.entity';
+import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { Item } from '../../items/entities/item.entity';
 import {
   Column,
   Entity,

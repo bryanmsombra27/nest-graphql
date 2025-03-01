@@ -18,6 +18,14 @@ $ npm install
   docker compose up -d
 ```
 
+- Si se esta trbajando en una version de pruebas o en desarrollo para importar data ficticia, ejecutar la mutacion `runSeed` para importar la informacion.
+
+```bash
+  mutation Mutation {
+  runSeed
+}
+```
+
 - Levantar proyecto de graphql
 
 ```bash

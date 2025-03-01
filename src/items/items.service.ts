@@ -3,12 +3,12 @@ import { UpdateItemInput } from './dto/inputs/update-item.input';
 import { CreateItemInput } from './dto/inputs/create-item.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Item } from './entities/item.entity';
-import { Repository, UpdateResult } from 'typeorm';
+import { Repository } from 'typeorm';
 import {
   DeleteItemResponse,
   FindAllResponse,
 } from '../response-schemas/ItemSchemaResponses';
-import { User } from 'src/users/entities/user.entity';
+import { User } from '../users/entities/user.entity';
 
 @Injectable()
 export class ItemsService {

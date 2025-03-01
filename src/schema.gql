@@ -60,6 +60,7 @@ type Mutation {
   updateUser(id: ID!, updateUserInput: UpdateUserInput!): User!
   signUp(SignUpInput: SignUpInput!): SignUpSchemaResponse!
   login(loginInput: LoginInput!): SignUpSchemaResponse!
+  runSeed: Boolean!
 }
 
 input CreateItemInput {

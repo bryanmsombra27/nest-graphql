@@ -1,5 +1,5 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { Item } from 'src/items/entities/item.entity';
+import { Item } from '../items/entities/item.entity';
 
 @ObjectType()
 export class FindAllResponse {

@@ -9,9 +9,8 @@ import {
 } from '../response-schemas/ItemSchemaResponses';
 import { ParseUUIDPipe, UseGuards } from '@nestjs/common';
 import { User } from '../users/entities/user.entity';
-import { Roles } from '../auth/enum/valid-roles';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
-import { JwtGuard } from 'src/auth/guards/jwt-auth.guard';
+import { JwtGuard } from '../auth/guards/jwt-auth.guard';
 
 @Resolver(() => Item)
 @UseGuards(JwtGuard)

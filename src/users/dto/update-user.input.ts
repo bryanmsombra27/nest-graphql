@@ -1,8 +1,7 @@
-import { SignUpInput } from 'src/auth/dto/inputs/signup-input';
 import { CreateUserInput } from './create-user.input';
 import { InputType, Field, PartialType, ID } from '@nestjs/graphql';
 import { IsArray, IsBoolean, IsOptional, IsUUID } from 'class-validator';
-import { Roles } from 'src/auth/enum/valid-roles';
+import { Roles } from '../../auth/enum/valid-roles';
 
 @InputType()
 export class UpdateUserInput extends PartialType(CreateUserInput) {
