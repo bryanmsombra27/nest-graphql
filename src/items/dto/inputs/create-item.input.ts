@@ -14,11 +14,11 @@ export class CreateItemInput {
   @IsNotEmpty()
   name: string;
 
-  @Field(() => Float)
-  @IsNotEmpty()
-  @IsNumber()
-  @Min(0)
-  quantity: number;
+  // @Field(() => Float)
+  // @IsNotEmpty()
+  // @IsNumber()
+  // @Min(0)
+  // quantity: number;
 
   @Field(() => String, { nullable: true })
   @IsOptional()
