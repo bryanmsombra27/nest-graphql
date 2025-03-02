@@ -11,6 +11,8 @@ import { ParseUUIDPipe, UseGuards } from '@nestjs/common';
 import { User } from '../users/entities/user.entity';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { JwtGuard } from '../auth/guards/jwt-auth.guard';
+import { PaginationArgs } from '../common/dto/args/pagination.args';
+import { SearchArgs } from '../common/dto/args/search.args';
 
 @Resolver(() => Item)
 @UseGuards(JwtGuard)
@@ -26,8 +28,12 @@ export class ItemsResolver {
   }
 
   @Query(() => FindAllResponse, { name: 'getAllItems' })
-  findAll(@CurrentUser() user: User) {
-    return this.itemsService.findAll(user);
+  findAll(
+    @CurrentUser() user: User,
+    @Args() paginationArgs: PaginationArgs,
+    @Args() searchArgs: SearchArgs,
+  ) {
+    return this.itemsService.findAll(user, paginationArgs, searchArgs);
   }
 
   @Query(() => Item, { name: 'getItem' })

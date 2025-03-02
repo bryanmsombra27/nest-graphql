@@ -3,12 +3,14 @@ import { UpdateItemInput } from './dto/inputs/update-item.input';
 import { CreateItemInput } from './dto/inputs/create-item.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Item } from './entities/item.entity';
-import { Repository } from 'typeorm';
+import { FindManyOptions, ILike, Like, Repository } from 'typeorm';
 import {
   DeleteItemResponse,
   FindAllResponse,
 } from '../response-schemas/ItemSchemaResponses';
 import { User } from '../users/entities/user.entity';
+import { PaginationArgs } from 'src/common/dto/args/pagination.args';
+import { SearchArgs } from 'src/common/dto/args/search.args';
 
 @Injectable()
 export class ItemsService {
@@ -26,20 +28,54 @@ export class ItemsService {
     return await this.itemRepository.save(item);
   }
 
-  async findAll(user: User): Promise<FindAllResponse> {
-    const [items, count] = await this.itemRepository.findAndCount({
+  async findAll(
+    user: User,
+    paginationArgs: PaginationArgs,
+    searchArgs: SearchArgs,
+  ): Promise<FindAllResponse> {
+    const { limit, offset } = paginationArgs;
+    const { search } = searchArgs;
+
+    const clause: FindManyOptions<Item> = {
       where: {
         isActive: true,
         user: {
           id: user.id,
         },
       },
-    });
+      take: limit,
+      skip: offset,
+    };
+
+    if (search) {
+      clause.where = {
+        ...clause.where,
+        // FUNCIONA SIMILIAR AL LIKE CON LA DIFERENCIA QUE IGNORA LAS MAYUSCULAS
+        name: ILike(`%${search.toLowerCase()}%`),
+      };
+    }
+
+    const [items, count] = await this.itemRepository.findAndCount(clause);
 
     return {
       items,
       count,
     };
+
+    // OTRA FORMA DE RETORNAR BUSQUEDA USANDO QUERY BUILDER
+    // const queryBuilder = this.itemRepository
+    //   .createQueryBuilder()
+    //   .take(limit)
+    //   .offset(offset)
+    //   .where(`"userId" = :userId`, { userId: user.id });
+
+    // if (search) {
+    //   queryBuilder.andWhere('LOWER(name) like :name', {
+    //     name: `%${search.toLowerCase()}%`,
+    //   });
+    // }
+
+    // return queryBuilder.getManyAndCount();
   }
 
   async findOne(id: string, user: User): Promise<Item> {

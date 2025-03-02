@@ -17,6 +17,9 @@ import { JwtGuard } from '../auth/guards/jwt-auth.guard';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { Roles } from '../auth/enum/valid-roles';
 import { ItemsService } from '../items/items.service';
+import { Item } from '../items/entities/item.entity';
+import { PaginationArgs } from '../common/dto/args/pagination.args';
+import { SearchArgs } from '../common/dto/args/search.args';
 
 @Resolver(() => User)
 @UseGuards(JwtGuard)
@@ -63,5 +66,22 @@ export class UsersResolver {
     const count = await this.itemsService.totalCount(user);
 
     return count;
+  }
+  @ResolveField(() => [Item], { name: 'items' })
+  async getItemsByUser(
+    @CurrentUser([Roles.admin]) adminUser: User,
+    @Args() paginationArgs: PaginationArgs,
+    @Args() searchArgs: SearchArgs,
+
+    @Parent() user: User,
+  ): Promise<Item[]> {
+    // const count = await this.itemsService.totalCount(user);
+    const { count, items } = await this.itemsService.findAll(
+      user,
+      paginationArgs,
+      searchArgs,
+    );
+
+    return items;
   }
 }

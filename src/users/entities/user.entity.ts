@@ -24,7 +24,7 @@ export class User {
   @Column({ unique: true })
   email: string;
 
-  @Field(() => String)
+  // @Field(() => String)
   @Column()
   password: string;
 
@@ -50,7 +50,7 @@ export class User {
   @JoinColumn()
   updatedBy?: User;
 
-  @Field(() => [Item])
+  // @Field(() => [Item])
   @OneToMany(() => Item, (item) => item.user, { lazy: true })
   // @OneToMany(() => Item, (item) => item.user)
   @JoinColumn()
