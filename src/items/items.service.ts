@@ -9,8 +9,8 @@ import {
   FindAllResponse,
 } from '../response-schemas/ItemSchemaResponses';
 import { User } from '../users/entities/user.entity';
-import { PaginationArgs } from 'src/common/dto/args/pagination.args';
-import { SearchArgs } from 'src/common/dto/args/search.args';
+import { PaginationArgs } from '../common/dto/args/pagination.args';
+import { SearchArgs } from '../common/dto/args/search.args';
 
 @Injectable()
 export class ItemsService {

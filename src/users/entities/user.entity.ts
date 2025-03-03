@@ -8,6 +8,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { List } from '../../lists/entities/list.entity';
 
 @ObjectType()
 @Entity({ name: 'Users' })
@@ -55,4 +56,8 @@ export class User {
   // @OneToMany(() => Item, (item) => item.user)
   @JoinColumn()
   items: Item[];
+
+  // @Field(() => [List], { nullable: true })
+  @OneToMany(() => List, (list) => list.user)
+  lists: List[];
 }

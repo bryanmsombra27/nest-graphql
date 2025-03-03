@@ -2,6 +2,24 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type ListItem {
+  id: ID!
+  quantity: Float!
+  completed: Boolean!
+  isActive: Boolean!
+  list: List!
+  item: Item!
+}
+
+type List {
+  id: ID!
+  name: String!
+  user: User!
+  isActive: Boolean!
+  items(offset: Int = 0, limit: Int = 10, search: String): [ListItem!]!
+  totalItems: Float!
+}
+
 type User {
   id: ID!
   fullName: String!
@@ -19,6 +37,7 @@ type Item {
   quantityUnits: String
   isActive: Boolean!
   user: User!
+  listItem: [ListItem!]!
 }
 
 type FindAllResponse {
@@ -37,12 +56,20 @@ type SignUpSchemaResponse {
   user: User!
 }
 
+type DeleteListResponse {
+  list: List!
+  message: String!
+}
+
 type Query {
   getAllItems(offset: Int = 0, limit: Int = 10, search: String): FindAllResponse!
   getItem(id: String!): Item!
   users(roles: [Roles!] = []): [User!]!
   user(id: ID!): User!
   revalidate: SignUpSchemaResponse!
+  listItem(id: String!): ListItem!
+  lists(offset: Int = 0, limit: Int = 10, search: String): [List!]!
+  list(id: ID!): List!
 }
 
 enum Roles {
@@ -60,6 +87,11 @@ type Mutation {
   signUp(SignUpInput: SignUpInput!): SignUpSchemaResponse!
   login(loginInput: LoginInput!): SignUpSchemaResponse!
   runSeed: Boolean!
+  createListItem(createListItemInput: CreateListItemInput!): ListItem!
+  updateListItem(updateListItemInput: UpdateListItemInput!): ListItem!
+  createList(createListInput: CreateListInput!): List!
+  updateList(updateListInput: UpdateListInput!): List!
+  removeList(id: String!): DeleteListResponse!
 }
 
 input CreateItemInput {
@@ -90,4 +122,27 @@ input SignUpInput {
 input LoginInput {
   email: String!
   password: String!
+}
+
+input CreateListItemInput {
+  quantity: Float = 0
+  listId: ID!
+  itemId: ID!
+}
+
+input UpdateListItemInput {
+  quantity: Float = 0
+  listId: ID
+  itemId: ID
+  id: ID!
+  completed: Boolean
+}
+
+input CreateListInput {
+  name: String!
+}
+
+input UpdateListInput {
+  name: String
+  id: ID!
 }
